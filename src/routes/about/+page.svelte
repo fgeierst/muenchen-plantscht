@@ -12,8 +12,8 @@
 	<h1>Log</h1>
 	<table>
 		<tr>
-			<th>Timestamp
-			</th>
+			<th>Record id</th>
+			<th>Timestamp </th>
 			<th>
 				Location id
 			</th>
@@ -23,6 +23,9 @@
 		</tr>
 		{#each data.results.rows as item}
 		<tr>
+			<td>
+				{item.id} 
+			</td>
 			<td>
 				{item.timestamp} 
 			</td>
