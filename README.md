@@ -2,6 +2,8 @@
 
 Echtzeit-Füllstandsanzeige der Münchner Bäder, mit historischen Daten.
 
+https://muenchen-plantscht.vercel.app/
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
