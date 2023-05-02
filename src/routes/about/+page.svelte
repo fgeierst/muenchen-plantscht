@@ -1,26 +1,40 @@
+<script>
+	/** @type {import('./$types').PageData} */
+	export let data;
+</script>
+
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>Log</title>
+	<meta name="description" content="Log" />
 </svelte:head>
 
 <div class="text-column">
-	<h1>About this app</h1>
-
-	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
-	</p>
-
-	<pre>npm create svelte@latest</pre>
-
-	<p>
-		The page you're looking at is purely static HTML, with no client-side interactivity needed.
-		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
-		the devtools network panel and reloading.
-	</p>
-
-	<p>
-		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
-		using it with JavaScript disabled!
-	</p>
+	<h1>Log</h1>
+	<table>
+		<tr>
+			<th>Timestamp
+			</th>
+			<th>
+				Location id
+			</th>
+			<th>
+				Free capacity 
+			</th>
+		</tr>
+		{#each data.results.rows as item}
+		<tr>
+			<td>
+				{item.timestamp} 
+			</td>
+			<td>
+				{item.location_id} 
+			</td>
+			<td>
+				{Math.floor(100 - (item.person_count / item.max_person_count * 100))}% 
+			</td>
+		</tr>
+		{/each}
+	</table>
+	
+	
 </div>
