@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { connect } from '@planetscale/database'
 
-/** @type {import('./$types').PageServerLoad} */
+/** @type {import('./about/$types').PageServerLoad} */
 export async function load({ params }) {
 
 	const config = {
