@@ -1,5 +1,8 @@
 <script>
 	/** @type {import('./$types').PageData} */
+
+	import Header from './Header.svelte';
+
 	export let data;
 
 	function getTimeValue(timestamp) {
@@ -14,10 +17,14 @@
 <svelte:head>
 	<title>München Plantscht</title>
 </svelte:head>
+
+<Header />
+
 <h1>Today</h1>
 
 <p class="weather">{data.weather.temperature}°C
 	{data.weather.icon}</p>
+
 
 <ul>
 {#each data.locations as location}

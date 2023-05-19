@@ -1,10 +1,8 @@
 <script>
-	import Header from './Header.svelte';
 	import './styles.css';
 </script>
 
 <div class="app">
-	<Header />
 
 	<main>
 		<slot />
@@ -13,9 +11,3 @@
 	<footer>
 	</footer>
 </div>
-
-<style>
-	:global(body) {
-		background-color: var(--light-blue);
-	}
-</style>

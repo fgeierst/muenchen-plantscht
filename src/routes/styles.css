@@ -1,13 +1,13 @@
 :root {
-	font-family: system-ui;
+	--munich-blue: hsl(206, 50%, 69%); 
+	--munich-white: hsl(0, 0%, 97%);
+	--munich-black: hsl(300, 24%, 6%);
+}
 
-	--blue: hsl(204, 100%, 30%);
-	--light-blue: hsl(197, 83%, 91%);
-	--aqua: hsl(180, 100%, 50%);
-	--seafoam-green: hsl(90, 39%, 49%);
-	--yellow: hsl(60, 100%, 50%);
-	--orange: hsl(30, 100%, 50%);
-	
+body {
+	font-family: system-ui;
+	background-color: var(--munich-blue);
+	color: var(--munich-black);
 }
 
 .visually-hidden {
