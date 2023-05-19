@@ -10,6 +10,7 @@ export async function load({ params }) {
 		password: process.env.DATABASE_PASSWORD
 	}
 	const conn = connect(config)
+	// Yesterday DATE_SUB(CURDATE(), INTERVAL 1 DAY) 
 	const results = await conn.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = CURDATE() ORDER BY timestamp ASC", [1])
 
 	// Group by location_id
