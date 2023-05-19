@@ -37,10 +37,8 @@
 <ul>
 {#each data.locations as location (location.location_id)}
 	<li id={location.location_id}>
-		<svg viewBox="0 0 200 110">
-			{#each location.data as snapshot}
-			<circle cx="{getTimeValue(snapshot.cest_timestamp)}" cy="{100-Math.floor( (snapshot.person_count / snapshot.max_person_count) * 100)}" r="1.3" ></circle>
-			{/each} 								 
+		<svg viewBox="0 0 200 110">							  -->
+			<path d={location.path}></path>
 		</svg>
 		
 		<span>{location.name ? location.name : location.location_id} </span>
@@ -64,6 +62,12 @@
 	svg {
 		width: 100%;
 		height: auto;
+		fill: none;
+	}
+
+	path {
+		stroke: var(--munich-black);
+		stroke-width: 2;
 	}
 
 	ul {
@@ -71,8 +75,14 @@
 		padding: 0;
 		margin: 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-		gap: .5rem;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 0 .5rem;
+	}
+
+	@media (max-width: 600px) {
+		ul {
+			grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+		}
 	}
 
 	li {

@@ -29,6 +29,7 @@
 	"type": "module",
 	"dependencies": {
 		"@planetscale/database": "^1.7.0",
+		"d3-shape": "^3.2.0",
 		"dotenv": "^16.0.3"
 	}
 }
