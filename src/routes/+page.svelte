@@ -10,7 +10,5 @@
 </section>
 
 <style>
-:global(body) {
-	background-color: var(--light-blue);
-}
+
 </style>
