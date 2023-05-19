@@ -4,14 +4,6 @@
 	import Header from './Header.svelte';
 
 	export let data;
-
-	function getTimeValue(timestamp) {
-		const time = new Date(timestamp).toLocaleTimeString("de-DE");
-		const [hours, minutes] = time.split(":");
-		const totalSeconds = parseInt(hours) * 3600 + parseInt(minutes) * 60;
-		const value = Math.round((totalSeconds / (24 * 60 * 60)) * 200);
-		return value;
-	}
 	
 	function currentCapacity(data) {
 		const currentSnapshot = data[data.length - 1];
@@ -46,6 +38,8 @@
 	</li>
 {/each}
 </ul>
+
+<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE")} CEST</p>
 
 <style>
 
@@ -93,4 +87,7 @@
 	li > * {
 	}
 
+	.last-updated {
+		margin-block: 4rem 2rem;
+	}
 </style>
