@@ -35,8 +35,8 @@
 
 
 <ul>
-{#each data.locations as location}
-	<li>
+{#each data.locations as location (location.location_id)}
+	<li id={location.location_id}>
 		<svg viewBox="0 0 200 110">
 			{#each location.data as snapshot}
 			<circle cx="{getTimeValue(snapshot.cest_timestamp)}" cy="{100-Math.floor( (snapshot.person_count / snapshot.max_person_count) * 100)}" r="1.3" ></circle>
@@ -81,10 +81,6 @@
 	}
 
 	li > * {
-	}
-
-	.content {
-		
 	}
 
 </style>
