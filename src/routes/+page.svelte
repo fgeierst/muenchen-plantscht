@@ -12,6 +12,14 @@
 		const value = Math.round((totalSeconds / (24 * 60 * 60)) * 200);
 		return value;
 	}
+	
+	function currentCapacity(data) {
+		const currentSnapshot = data[data.length - 1];
+		const personCount = currentSnapshot.person_count;
+		const maxPersonCount = currentSnapshot.max_person_count;
+		const capacity = 100 - Math.floor( (personCount / maxPersonCount) * 100)
+		return capacity;
+	}
 </script>
 
 <svelte:head>
@@ -29,20 +37,14 @@
 <ul>
 {#each data.locations as location}
 	<li>
-		<span>{location.location_id}</span>
-		
 		<svg viewBox="0 0 200 110">
-						
 			{#each location.data as snapshot}
-				<circle cx="{getTimeValue(snapshot.cest_timestamp)}" cy="{100-Math.floor( (snapshot.person_count / snapshot.max_person_count) * 100)}" r="1.3" ></circle>
+			<circle cx="{getTimeValue(snapshot.cest_timestamp)}" cy="{100-Math.floor( (snapshot.person_count / snapshot.max_person_count) * 100)}" r="1.3" ></circle>
 			{/each} 								 
-					
 		</svg>
-		<!-- {#each location.data as snapshot}
-			<span class="snapshot" style="--top: {Math.floor( (snapshot.person_count / snapshot.max_person_count) * 100)}px">
-			</span>
-		{/each} -->
-
+		
+		<span>{location.name ? location.name : location.location_id} </span>
+		<span class="capacity">{currentCapacity(location.data)}% free</span>
 	</li>
 {/each}
 </ul>
@@ -74,15 +76,15 @@
 	}
 
 	li {
-		display: grid;
-		align-items: end;
+		display: flex;
+		flex-direction: column;
 	}
 
 	li > * {
-		grid-area: 1 / 1;
 	}
 
-	span {
-		padding: 1rem .2rem;
+	.content {
+		
 	}
+
 </style>
