@@ -10,9 +10,28 @@ export async function load({ params }) {
 		password: process.env.DATABASE_PASSWORD
 	}
 	const conn = connect(config)
-	const results = await conn.execute('SELECT * FROM person_count_log;', [1])
+	const results = await conn.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = CURDATE() ORDER BY timestamp ASC", [1])
+
+	// Group by location_id
+	const locations = results.rows.reduce((acc, obj) => {
+		const { location_id, ...rest } = obj;
+		const index = acc.findIndex(item => item.location_id === location_id);
+		if (index === -1) {
+			acc.push({ location_id, data: [rest] });
+		} else {
+			acc[index].data.push(rest);
+		}
+		return acc;
+	}, []);
+
+
+	const weather = await fetch('https://api.brightsky.dev/current_weather?dwd_station_id=03379', {method: 'GET', headers: {accept: 'application/json'}})
+	const weatherData = await weather.json()
 
 	return {
-			results: results
+		results: results,
+		locations: locations,
+		weather: weatherData.weather
 	};
 }
+
