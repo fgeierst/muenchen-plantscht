@@ -39,7 +39,7 @@
 {/each}
 </ul>
 
-<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE")} CEST</p>
+<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleDateString("de-DE", { day: 'numeric', month: 'short' })}, {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE", { hour: 'numeric', minute: 'numeric' })}</p>
 
 <style>
 
