@@ -21,7 +21,7 @@ export async function load({ params }) {
 	}
 	const conn = connect(config)
 	// Yesterday DATE_SUB(CURDATE(), INTERVAL 1 DAY) 
-	const results = await conn.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = CURDATE() ORDER BY timestamp ASC", [1])
+	const results = await conn.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = CURDATE() AND location_id NOT IN (30201, 30195) ORDER BY timestamp ASC", [1])
 
 	const locationNames = await conn.execute("SELECT * FROM locations", [1])
 
