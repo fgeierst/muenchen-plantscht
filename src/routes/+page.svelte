@@ -1,7 +1,7 @@
 <script>
 	/** @type {import('./$types').PageData} */
 
-	import Header from './Header.svelte';
+	import Header from '../components/Header.svelte';
 
 	export let data;
 	

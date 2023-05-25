@@ -2,8 +2,6 @@ import 'dotenv/config'
 import { connect } from '@planetscale/database'
 import { line, curveNatural } from 'd3-shape'
 
-/** @type {import('./about/$types').PageServerLoad} */
-
 function timeValue(timestamp) {
 	const time = new Date(timestamp).toLocaleTimeString("de-DE");
 	const [hours, minutes] = time.split(":");

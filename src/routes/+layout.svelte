@@ -1,5 +1,6 @@
 <script>
-	import './styles.css';
+	import Footer from '../components/Footer.svelte';
+import './styles.css';
 </script>
 
 <div class="app">
@@ -8,6 +9,5 @@
 		<slot />
 	</main>
 
-	<footer>
-	</footer>
+	<Footer />
 </div>
