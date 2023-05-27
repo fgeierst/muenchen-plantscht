@@ -2,11 +2,14 @@ import { parse } from 'node-html-parser';
 import 'dotenv/config';
 import { connect } from '@planetscale/database';
 
-console.log('Hello lakes.js');
-
+// lakes https://www.gkd.bayern.de/en/lakes/waterlevel/tables
+// rivers https://www.gkd.bayern.de/en/rivers/watertemperature/tables
+const url = 'https://www.gkd.bayern.de/en/lakes/waterlevel/tables';
 
 function convertGermanDateToIso(dateStr) {
   // const dateStr = "24.05.2023 20:00";
+  console.log(dateStr);
+  
   const [day, month, year, hour, minute] = dateStr.split(/[.: ]/);
 	const dateObj = new Date(year, month, day, hour, minute);	
   return dateObj.toISOString().slice(0, 19).replace("T", " ");
@@ -56,22 +59,17 @@ async function parseHtml(html, selector) {
 			items.push({
 				location_name,
 				date: convertGermanDateToIso(date),
-				temperature: temperature.replace(/,/g, '.'),
+				temperature,
 			});
 		}
   });
   return items;
 }
 
-const html = await fetchUrl(
-  "https://www.gkd.bayern.de/de/seen/wassertemperatur/tabellen"
-);
+const html = await fetchUrl(url);
 
-const snapshots = await parseHtml(
-	html,
-	"#karteTabellen tr:not(:first-child)"
-);
+const snapshots = await parseHtml( html, "#karteTabellen tr:not(:first-child)" );
 
-const results = await storeLakeSnapshot(snapshots);
+// const results = await storeLakeSnapshot(snapshots);
 
-console.log(snapshots, results);
+console.log(snapshots);
