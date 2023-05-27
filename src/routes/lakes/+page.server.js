@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { connect } from '@planetscale/database'
+// import db from '$lib/database'
 
 export async function load({ params }) {
 
@@ -10,7 +11,6 @@ export async function load({ params }) {
 	}
 	const conn = connect(config)
 	const results = await conn.execute("SELECT * FROM lakes", [1])
-	console.log(results);
 	
 	return {
 		lakes: results.rows,

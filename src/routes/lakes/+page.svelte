@@ -7,14 +7,9 @@
 	
 </script>
 
-<svelte:head>
-	<title>München Plantscht</title>
-</svelte:head>
-
 <Header />
 
 <h1>Lakes</h1>
-
 
 <ul>
 {#each data.lakes as lake (lake.id)}

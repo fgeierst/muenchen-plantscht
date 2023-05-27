@@ -14,10 +14,6 @@
 	}
 </script>
 
-<svelte:head>
-	<title>München Plantscht</title>
-</svelte:head>
-
 <Header />
 
 <h1>Today</h1>

@@ -6,6 +6,7 @@
 	<nav>
 		<a href="/">Swimming pools</a>
 		<a href="/lakes">Lakes</a>
+		<a href="/about">About</a>
 	</nav>
 
 </footer>
