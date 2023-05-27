@@ -3,7 +3,7 @@
 
 	import Header from '../components/Header.svelte';
 
-	export let data;
+	export let data;	
 	
 	function currentCapacity(data) {
 		const currentSnapshot = data[data.length - 1];
@@ -18,24 +18,31 @@
 
 <h1>Today</h1>
 
-<p class="weather">{data.weather.temperature}°C
-	{data.weather.icon}</p>
+<p class="weather">
+	{data.weather.temperature}°C
+	{data.weather.icon}
+</p>
 
+{#if data.locations.length > 0}
+	<ul>
+	{#each data.locations as location (location.location_id)}
+		<li id={location.location_id}>
+			<svg viewBox="0 0 200 110">
+				<path d={location.path2} class="path2"></path>
+				<path d={location.path}></path>
+			</svg>
+			
+			<span>{location.name ? location.name : location.location_id} </span>
+			<span class="capacity">{currentCapacity(location.data)}% free</span>
+		</li>
+	{/each}
+	</ul>
 
-<ul>
-{#each data.locations as location (location.location_id)}
-	<li id={location.location_id}>
-		<svg viewBox="0 0 200 110">							  -->
-			<path d={location.path}></path>
-		</svg>
-		
-		<span>{location.name ? location.name : location.location_id} </span>
-		<span class="capacity">{currentCapacity(location.data)}% free</span>
-	</li>
-{/each}
-</ul>
+	<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleDateString("de-DE", { day: 'numeric', month: 'short' })}, {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE", { hour: 'numeric', minute: 'numeric' })}</p>
 
-<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleDateString("de-DE", { day: 'numeric', month: 'short' })}, {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE", { hour: 'numeric', minute: 'numeric' })}</p>
+{:else}
+	<p>No data avavailable.</p>
+{/if}
 
 <style>
 
@@ -58,6 +65,10 @@
 	path {
 		stroke: var(--munich-black);
 		stroke-width: 2;
+	}
+
+	.path2 {
+		opacity: .12;
 	}
 
 	ul {
