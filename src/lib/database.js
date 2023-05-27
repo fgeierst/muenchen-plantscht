@@ -6,6 +6,6 @@ const config = {
 	username: process.env.DATABASE_USERNAME,
 	password: process.env.DATABASE_PASSWORD
 }
-const conn = connect(config)
+const db = connect(config)
 
-export default conn;
+export default db;

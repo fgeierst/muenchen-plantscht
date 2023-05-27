@@ -1,19 +1,11 @@
-import 'dotenv/config'
-import { connect } from '@planetscale/database'
-// import db from '$lib/database'
+export async function load({ fetch }) {
 
-export async function load({ params }) {
+	const response = await fetch('/api/lakes');
 
-	const config = {
-		host: process.env.DATABASE_HOST,
-		username: process.env.DATABASE_USERNAME,
-		password: process.env.DATABASE_PASSWORD
-	}
-	const conn = connect(config)
-	const results = await conn.execute("SELECT * FROM lakes", [1])
+	const lakes = await response.json()
 	
 	return {
-		lakes: results.rows,
+		lakes: lakes,
 	};
 }
 
