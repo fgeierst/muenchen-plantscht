@@ -1,25 +1,14 @@
 <script>
+	import Pretzel from '$lib/icons/Pretzel.svelte';
 </script>
-
 <footer>
-
-	<nav>
-		<a href="/">Swimming pools</a>
-		<a href="/lakes">Lakes</a>
-		<a href="/about">About</a>
-	</nav>
-
+	Made with <span class="icon"><Pretzel /></span> in Munich. 
+	<a href="https://github.com/fgeierst/muenchen-plantscht">Github</a>
 </footer>
 
 <style>
-
-	a {
-		color: inherit;
-	}
-
-	nav {
-		margin-block: 1.5rem 4rem;
-		display: flex;
-		gap: 2rem ;
+	.icon :global(svg) {
+		display: inline-block;
+		height: .8em;
 	}
 </style>

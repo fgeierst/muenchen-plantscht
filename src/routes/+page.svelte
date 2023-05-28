@@ -1,8 +1,6 @@
 <script>
 	/** @type {import('./$types').PageData} */
 
-	import Header from '../components/Header.svelte';
-
 	export let data;	
 	
 	function currentCapacity(data) {
@@ -13,15 +11,6 @@
 		return capacity;
 	}
 </script>
-
-<Header />
-
-<h1>Today</h1>
-
-<p class="weather">
-	{data.weather.temperature}°C
-	{data.weather.icon}
-</p>
 
 {#if data.locations.length > 0}
 	<ul>
@@ -38,23 +27,13 @@
 	{/each}
 	</ul>
 
-	<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleDateString("de-DE", { day: 'numeric', month: 'short' })}, {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE", { hour: 'numeric', minute: 'numeric' })}</p>
+	<p class="last-updated">Last updated: {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleDateString("de-DE", { day: 'numeric', month: 'short' })}, {new Date(data.locations[0].data[data.locations[0].data.length - 1].cest_timestamp).toLocaleTimeString("de-DE", { hour: 'numeric', minute: 'numeric' })}. Comparison data (grey line) is from one week earlier.</p>
 
 {:else}
 	<p>No data avavailable.</p>
 {/if}
 
 <style>
-
- h1 { 
-	display: inline;
- }
-
-	.weather {
-		display: inline;
-		font-size: 200%;
-		margin: 0;
-	}
 
 	svg {
 		width: 100%;

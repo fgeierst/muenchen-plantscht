@@ -2,12 +2,17 @@
 	--munich-blue: hsl(206, 50%, 69%); 
 	--munich-white: hsl(0, 0%, 97%);
 	--munich-black: hsl(300, 24%, 6%);
+	--munich-black-hsl: 300, 24%, 6%;
 }
 
 body {
 	font-family: system-ui;
 	background-color: var(--munich-blue);
 	color: var(--munich-black);
+}
+
+a {
+	color: inherit;
 }
 
 .visually-hidden {
