@@ -2,7 +2,7 @@ import { parse } from 'node-html-parser';
 import 'dotenv/config';
 import { connect } from '@planetscale/database';
 
-const config = 0; // 0 = lakes, 1 = rivers
+const config = 1; // 0 = lakes, 1 = rivers
 
 const category_ids = [
   { name: "lakes", url: "https://www.gkd.bayern.de/en/lakes/watertemperature/tables" },
@@ -14,7 +14,7 @@ const url = category_ids[config].url;
 function convertGermanDateToIso(dateStr) {
   // const dateStr = "24.05.2023 20:00";
   const [day, month, year, hour, minute] = dateStr.split(/[.: ]/);
-  const dateObj = new Date(year, month, day, hour, minute);
+  const dateObj = new Date(year, month - 1, day, hour, minute);
   return dateObj.toISOString().slice(0, 19).replace("T", " ");
 }
 

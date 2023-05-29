@@ -9,6 +9,10 @@
 			href: "/lakes",
 			title: "Lakes",
 		},
+		{
+			href: "/rivers",
+			title: "Rivers",
+		},
 	];
 </script>
 
