@@ -2,15 +2,15 @@ import db from '$lib/database';
 import { line, curveNatural } from 'd3-shape';
 
 export async function getLocations(date) {
-	
-	const { rows: snapshots } = await db.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = ? AND location_id NOT IN (30201, 30195) ORDER BY timestamp ASC", [date]);
+
+	const { rows: snapshots } = await db.execute("SELECT *, CONVERT_TZ(timestamp, 'UTC', 'Europe/Paris') AS cest_timestamp FROM person_count_log WHERE DATE(timestamp) = ? AND location_id NOT IN (30201, 30195, 30197, 30204) ORDER BY timestamp ASC", [date]);
 
 	const locationNames = await db.execute("SELECT * FROM locations", [1])
 
 	const groups = groupByLocation(snapshots, locationNames)
 	const locations = addD3Path(groups);
 	locations.sort((a, b) => a.name.localeCompare(b.name)); // sort by name
-	
+
 	return locations;
 }
 
@@ -43,7 +43,7 @@ function addD3Path(locations) {
 			.x(d => d[0])
 			.y(d => d[1])
 			.curve(curveNatural);
-		
+
 		const path = lineGenerator(points);
 
 		return { ...location, path: path };
