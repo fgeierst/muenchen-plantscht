@@ -13,8 +13,6 @@
 </script>
 
 <nav>
-	<!-- <a href="/" aria-current="">Pools</a>
-	<a href="/lakes">Lakes</a> -->
 	{#each items as { href, title }}
 		<a {href} aria-current={$page.url.pathname === href ? "page" : undefined}>
 			{title}

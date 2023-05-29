@@ -1,9 +1,9 @@
 import { json } from '@sveltejs/kit'
 import db from '$lib/database'
 
-export async function GET(event) {
+export async function GET({ setHeaders }) {
 
-  event.setHeaders({
+  setHeaders({
     'Cache-Control': 'public, max-age=604800' // cache for 1 week
   })
 
