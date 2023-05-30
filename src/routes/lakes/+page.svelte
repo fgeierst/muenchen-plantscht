@@ -7,9 +7,10 @@
 <ul>
 	{#each data.lakes as lake (lake.id)}
 		<li>
-			<span class="temperature">{lake.water_temperature}°C</span>
-			<span>{lake.body_of_water}</span>
-			<div>
+			<span class="temperature">{lake.water_temperature}°</span>
+			<span class="name">{lake.body_of_water}</span>
+			<span class="small">{lake.measurement_site}</span>
+			<div class="small">
 				<span class="date"
 					>{new Date(lake.date).toLocaleDateString("de-DE", {
 						day: "numeric",
@@ -50,5 +51,15 @@
 
 	.temperature {
 		font-size: 2em;
+	}
+
+	.name {
+		margin-block-end: 0.3em;
+	}
+
+	.small {
+		font-size: 0.75em;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
 	}
 </style>
