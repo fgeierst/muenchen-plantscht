@@ -2,8 +2,6 @@
 	import Header from "../components/Header.svelte";
 	import Footer from "../components/Footer.svelte";
 	import "./styles.css";
-
-	export let data;
 </script>
 
 <div class="app">

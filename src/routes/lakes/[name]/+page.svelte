@@ -1,19 +1,13 @@
 <script>
-	import { slugify } from "$lib/slugify";
-	/** @type {import('./$types').PageData} */
-
 	export let data;
 </script>
 
-<ul>
-	{#each data.lakes as lake}
-		<li>
-			<span class="temperature">{lake.water_temperature}°</span>
-			<a href={`lakes/${slugify(lake.body_of_water)}`}>
-				<span class="name">{lake.body_of_water}</span>
-			</a>
-			<!-- <span class="small">{lake.measurement_site}</span> -->
-			<!-- <div class="small">
+<h1>{data.title}</h1>
+
+<table>
+	{#each data.result.rows as lake}
+		<tr>
+			<td>
 				<span class="date"
 					>{new Date(lake.date).toLocaleDateString("de-DE", {
 						day: "numeric",
@@ -26,10 +20,12 @@
 						minute: "numeric",
 					})}
 				</span>
-			</div> -->
-		</li>
+			</td>
+			<td>{lake.measurement_site}</td>
+			<td>{lake.water_temperature}°</td>
+		</tr>
 	{/each}
-</ul>
+</table>
 
 <style>
 	ul {
@@ -50,7 +46,6 @@
 	li {
 		display: flex;
 		flex-direction: column;
-		position: relative;
 	}
 
 	.temperature {
@@ -61,18 +56,9 @@
 		margin-block-end: 0.3em;
 	}
 
-	.name::after {
-		content: " ⏵";
-		color: hsla(var(--munich-black-hsl), 0.3);
-	}
-
-	a {
-		text-decoration: none;
-	}
-
-	a::after {
-		content: "";
-		position: absolute;
-		inset: 0;
+	.small {
+		font-size: 0.75em;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
 	}
 </style>
