@@ -1,25 +1,30 @@
 import { json } from '@sveltejs/kit';
+import db from '$lib/database';
 
-export async function GET() {
+export async function GET({ url }) {
 
-	const rows = [
-		{
-			date: "2023-06-01 14:15:00",
-			temperature: 19.0,
-		},
-		{
-			date: "2023-06-01 16:18:00",
-			temperature: 20.0,
-		},
-		{
-			date: "2023-06-01 17:19:00",
-			temperature: 21,
-		},
-		{
-			date: "2023-06-01 18:20:00",
-			temperature: 5,
-		}
-	]
-	return json(rows);
+	const lake = url.searchParams.get('name');
+	const result = await db.execute("SELECT water_temperature, date FROM water_temperatures WHERE category_id = 0 AND body_of_water = ? ORDER BY date DESC", [lake]);
+
+	// Example data
+	// const rows = [
+	// {
+	//   "water_temperature": 23.6,
+	//   "date": "2023-06-01 18:00:00"
+	// },
+	// {
+	//   "water_temperature": 24.1,
+	//   "date": "2023-06-01 17:00:00"
+	// },
+	// {
+	//   "water_temperature": 21.3,
+	//   "date": "2023-06-01 15:00:00"
+	// },
+	// {
+	//   "water_temperature": 21,
+	//   "date": "2023-06-01 14:00:00"
+	// },
+	// ]
+	return json(result.rows);
 }
 

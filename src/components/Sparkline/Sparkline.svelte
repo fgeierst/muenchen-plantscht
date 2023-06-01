@@ -1,5 +1,20 @@
 <script>
 	import * as d3 from "d3";
+	import { onMount } from "svelte";
+
+	export let url;
+
+	let wrapper;
+
+	onMount(() => {
+		console.log(wrapper);
+		d3.json(url)
+			.then((data) => {
+				const sortedData = sort(data);
+				draw(sortedData, wrapper);
+			})
+			.catch((error) => console.log(error));
+	});
 
 	const dimensions = {
 		width: 200,
@@ -9,7 +24,7 @@
 	};
 
 	const xAccessor = (d) => d.date;
-	const yAccessor = (d) => d.temperature;
+	const yAccessor = (d) => d.water_temperature;
 
 	const formatDate = d3.timeFormat("%Y-%m-%d %H:%M");
 
@@ -18,9 +33,9 @@
 		return `${formatDate(date)}`;
 	};
 
-	function draw(data) {
+	function draw(data, element) {
 		// console.log(data);
-		const wrapper = d3.select("[data-wrapper]");
+		const wrapper = d3.select(element);
 		const svg = wrapper
 			.select("[data-chart]")
 			.append("svg")
@@ -61,13 +76,9 @@
 			.curve(d3.curveBumpX);
 
 		const line = svg
-			/* Append `path` */
 			.append("path")
-			/* Bind the data */
 			.datum(data)
-			/* Pass the generated line to the `d` attribute */
 			.attr("d", lineGenerator)
-			/* Set some styles */
 			.attr("stroke", "black")
 			.attr("stroke-width", 2)
 			.attr("stroke-linejoin", "round")
@@ -103,20 +114,18 @@
 			markerLine.attr("x1", x).attr("x2", x).attr("opacity", 1);
 			markerDot.attr("cx", x).attr("cy", y).attr("opacity", 1);
 
-			d3.select("[data-date]").text(getText(data, d));
-			d3.select("[data-temperature]").text(yAccessor(d));
+			wrapper.select("[data-date]").text(getText(data, d));
+			wrapper.select("[data-temperature]").text(yAccessor(d));
 		});
 
 		svg.on("mouseleave", () => {
 			const lastDatum = data[data.length - 1];
 
-			/* Hide the markers */
 			markerLine.attr("opacity", 0);
 			markerDot.attr("opacity", 0);
 
-			/* Reset the text to show latest value */
-			d3.select("[data-date]").text("Current temperature");
-			d3.select("[data-temperature]").text(yAccessor(lastDatum));
+			wrapper.select("[data-date]").text(getText(data, lastDatum));
+			wrapper.select("[data-temperature]").text(yAccessor(lastDatum));
 		});
 	}
 
@@ -130,16 +139,9 @@
 			})
 			.sort((a, b) => d3.ascending(a.date, b.date));
 	}
-
-	d3.json("http://localhost:5173/api/temperature")
-		.then((data) => {
-			const sortedData = sort(data);
-			draw(sortedData);
-		})
-		.catch((error) => console.log(error));
 </script>
 
-<div class="wrapper" data-wrapper>
+<div class="wrapper" data-wrapper bind:this={wrapper}>
 	<figure data-chart />
 	<div class="legend">
 		<span data-date /><span data-temperature />
