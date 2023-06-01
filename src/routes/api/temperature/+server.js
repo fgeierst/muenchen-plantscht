@@ -4,7 +4,7 @@ import db from '$lib/database';
 export async function GET({ url }) {
 
 	const lake = url.searchParams.get('name');
-	const result = await db.execute("SELECT water_temperature, date FROM water_temperatures WHERE category_id = 0 AND body_of_water = ? ORDER BY date DESC", [lake]);
+	const result = await db.execute("SELECT water_temperature, date FROM water_temperatures WHERE category_id = 0 AND body_of_water = ? AND date >= DATE_SUB(NOW(), INTERVAL 2 WEEK) ORDER BY date DESC", [lake]);
 
 	// Example data
 	// const rows = [

@@ -9,6 +9,7 @@ body {
 	font-family: system-ui;
 	background-color: var(--munich-blue);
 	color: var(--munich-black);
+	font-size: 18px;
 }
 
 a {

@@ -6,12 +6,12 @@
   export let Hst;
 </script>
 
-<Hst.Story layout={{ type: "grid", width: 200 }}>
+<Hst.Story layout={{ type: "single", width: "100%" }}>
   <Hst.Variant title="Wörthsee">
-    <Sparkline url={worthseeUrl} />
+    <Sparkline url={worthseeUrl} name="Wörthsee" />
   </Hst.Variant>
 
   <Hst.Variant title="Waginger See">
-    <Sparkline url={waginerseeUrl} />
+    <Sparkline url={waginerseeUrl} name="Waginger See" />
   </Hst.Variant>
 </Hst.Story>

@@ -3,6 +3,7 @@
 	import { onMount } from "svelte";
 
 	export let url;
+	export let name;
 
 	let wrapper;
 
@@ -40,6 +41,10 @@
 			.select("[data-chart]")
 			.append("svg")
 			.attr("viewBox", `0 0 ${dimensions.width} ${dimensions.height}`);
+
+		const lastDatum = data[data.length - 1];
+		wrapper.select("[data-date]").text(getText(data, lastDatum));
+		wrapper.select("[data-temperature]").text(yAccessor(lastDatum));
 
 		const xDomain = d3.extent(data, xAccessor);
 		const xScale = d3
@@ -94,14 +99,6 @@
 			.attr("stroke", "black")
 			.attr("opacity", 0);
 
-		const markerDot = svg
-			.append("circle")
-			.attr("cx", 0)
-			.attr("cy", 0)
-			.attr("r", 5)
-			.attr("fill", "black")
-			.attr("opacity", 0);
-
 		const bisect = d3.bisector(xAccessor);
 		svg.on("mousemove", (e) => {
 			const pointerCoords = d3.pointer(e);
@@ -112,18 +109,13 @@
 			const x = xScale(xAccessor(d));
 			const y = yScale(yAccessor(d));
 			markerLine.attr("x1", x).attr("x2", x).attr("opacity", 1);
-			markerDot.attr("cx", x).attr("cy", y).attr("opacity", 1);
 
 			wrapper.select("[data-date]").text(getText(data, d));
 			wrapper.select("[data-temperature]").text(yAccessor(d));
 		});
 
 		svg.on("mouseleave", () => {
-			const lastDatum = data[data.length - 1];
-
 			markerLine.attr("opacity", 0);
-			markerDot.attr("opacity", 0);
-
 			wrapper.select("[data-date]").text(getText(data, lastDatum));
 			wrapper.select("[data-temperature]").text(yAccessor(lastDatum));
 		});
@@ -142,32 +134,52 @@
 </script>
 
 <div class="wrapper" data-wrapper bind:this={wrapper}>
+	<div class="title">
+		<span class="name">{name}</span>
+		<span class="temperature" data-temperature />
+	</div>
+
 	<figure data-chart />
 	<div class="legend">
-		<span data-date /><span data-temperature />
+		<span data-date />
 	</div>
 </div>
 
 <style>
-	.wrapper {
-		width: 300px;
-		max-width: 100%;
-		aspect-ratio: 2/1;
+	.title {
+		display: flex;
+		gap: 0.8em;
+		margin-block-end: 0.5em;
+	}
+
+	.name {
+		font-size: 2rem;
+		font-weight: bold;
 	}
 
 	figure {
+		width: 300px;
+		max-width: 100%;
+		aspect-ratio: 2/1;
 		margin: 0;
 	}
 
 	figure :global(svg) {
 		width: 100%;
 		height: auto;
-		/* border: 1px dashed; */
 		display: block;
 	}
 
 	.legend {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.temperature {
+		font-size: 2rem;
+	}
+
+	.temperature::after {
+		content: "°";
 	}
 </style>

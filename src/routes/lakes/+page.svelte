@@ -1,4 +1,5 @@
 <script>
+	import RoundArrowForward from "$lib/icons/RoundArrowForward.svelte";
 	import { slugify } from "$lib/slugify";
 	/** @type {import('./$types').PageData} */
 
@@ -11,22 +12,8 @@
 			<span class="temperature">{lake.water_temperature}°</span>
 			<a href={`lakes/${slugify(lake.body_of_water)}`}>
 				<span class="name">{lake.body_of_water}</span>
+				<RoundArrowForward />
 			</a>
-			<!-- <span class="small">{lake.measurement_site}</span> -->
-			<!-- <div class="small">
-				<span class="date"
-					>{new Date(lake.date).toLocaleDateString("de-DE", {
-						day: "numeric",
-						month: "short",
-					})}</span
-				>,
-				<span class="time"
-					>{new Date(lake.date).toLocaleTimeString("de-DE", {
-						hour: "numeric",
-						minute: "numeric",
-					})}
-				</span>
-			</div> -->
 		</li>
 	{/each}
 </ul>
@@ -59,11 +46,6 @@
 
 	.name {
 		margin-block-end: 0.3em;
-	}
-
-	.name::after {
-		content: " ⏵";
-		color: hsla(var(--munich-black-hsl), 0.3);
 	}
 
 	a {
