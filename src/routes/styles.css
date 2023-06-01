@@ -5,11 +5,16 @@
 	--munich-black-hsl: 300, 24%, 6%;
 }
 
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: system-ui;
 	background-color: var(--munich-blue);
 	color: var(--munich-black);
 	font-size: 18px;
+	margin-block: 0;
 }
 
 a {

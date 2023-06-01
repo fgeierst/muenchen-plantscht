@@ -19,7 +19,7 @@
 
 	const dimensions = {
 		width: 200,
-		height: 100,
+		height: 75,
 		marginTop: 10,
 		marginInline: 5,
 	};
@@ -134,12 +134,13 @@
 </script>
 
 <div class="wrapper" data-wrapper bind:this={wrapper}>
+	<figure data-chart />
+
 	<div class="title">
 		<span class="name">{name}</span>
 		<span class="temperature" data-temperature />
 	</div>
 
-	<figure data-chart />
 	<div class="legend">
 		<span data-date />
 	</div>
@@ -148,8 +149,8 @@
 <style>
 	.title {
 		display: flex;
-		gap: 0.8em;
-		margin-block-end: 0.5em;
+		gap: 0.5em;
+		margin-block: 1em 0.3em;
 	}
 
 	.name {
@@ -160,8 +161,8 @@
 	figure {
 		width: 300px;
 		max-width: 100%;
-		aspect-ratio: 2/1;
-		margin: 0;
+		aspect-ratio: 3/1;
+		margin: 1rem 0 0 0;
 	}
 
 	figure :global(svg) {

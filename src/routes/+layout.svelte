@@ -14,8 +14,13 @@
 
 <style>
 	.app {
-		display: grid;
+		height: 120vh;
+		display: flex;
+		flex-direction: column;
 		gap: 2rem;
-		margin-block-end: 4rem;
+	}
+
+	main {
+		flex-grow: 1;
 	}
 </style>
