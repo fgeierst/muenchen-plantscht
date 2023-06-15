@@ -9,7 +9,7 @@
 <ul>
 	{#each data.lakes as lake}
 		<li>
-			<span class="temperature">{lake.water_temperature}°</span>
+			<span class="temperature">{lake.water_temperature.toFixed(0)}°</span>
 			<a href={`lakes/${slugify(lake.body_of_water)}`}>
 				<span class="name">{lake.body_of_water}</span>
 				<RoundArrowForward />

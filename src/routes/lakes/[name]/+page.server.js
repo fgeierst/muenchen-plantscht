@@ -6,6 +6,7 @@ const lakes = [
 	'Ammersee',
 	'Bodensee',
 	'Chiemsee',
+	'Feringasee',
 	'Kleiner Brombachsee',
 	'Königssee',
 	'Pilsensee',

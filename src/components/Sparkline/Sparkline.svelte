@@ -25,7 +25,7 @@
 	};
 
 	const xAccessor = (d) => d.date;
-	const yAccessor = (d) => d.water_temperature;
+	const yAccessor = (d) => d.water_temperature.toFixed(1);
 
 	const formatDate = d3.timeFormat("%Y-%m-%d %H:%M");
 
@@ -35,7 +35,6 @@
 	};
 
 	function draw(data, element) {
-		// console.log(data);
 		const wrapper = d3.select(element);
 		const svg = wrapper
 			.select("[data-chart]")
@@ -60,19 +59,6 @@
 			.scaleLinear()
 			.domain(yDomain)
 			.range([dimensions.height, dimensions.marginTop]);
-
-		// const areaGenerator = d3
-		// 	.area()
-		// 	.x((d) => xScale(xAccessor(d)))
-		// 	.y1((d) => yScale(yAccessor(d)))
-		// 	.y0(dimensions.height)
-		// 	.curve(d3.curveBumpX);
-
-		// const area = svg
-		// 	.append("path")
-		// 	.datum(data)
-		// 	.attr("d", areaGenerator)
-		// 	.attr("fill", "lavender");
 
 		const lineGenerator = d3
 			.line()
