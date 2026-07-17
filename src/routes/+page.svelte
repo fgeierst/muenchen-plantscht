@@ -3,16 +3,17 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const hasData = $derived(data.locations.length > 0);
+	/** All areas across every location, flattened into a single list. */
+	const areas = $derived(data.locations.flatMap((loc) => loc.areas));
+
+	const hasData = $derived(areas.length > 0);
 
 	/** Most recent recorded_at across all areas, for the "last updated" note. */
 	const lastUpdated = $derived.by(() => {
 		let latest: string | null = null;
-		for (const loc of data.locations) {
-			for (const area of loc.areas) {
-				const at = area.latest?.recorded_at;
-				if (at && (!latest || at > latest)) latest = at;
-			}
+		for (const area of areas) {
+			const at = area.latest?.recorded_at;
+			if (at && (!latest || at > latest)) latest = at;
 		}
 		return latest;
 	});
@@ -34,27 +35,22 @@
 </script>
 
 {#if hasData}
-	{#each data.locations as location (location.location_id)}
-		<section>
-			<h2>{location.location_name}</h2>
-			<ul>
-				{#each location.areas as area (area.area_id)}
-					<li>
-						<svg viewBox="0 0 200 110" aria-hidden="true">
-							{#if area.path2}
-								<path d={area.path2} class="path2"></path>
-							{/if}
-							<path d={area.path}></path>
-						</svg>
-						<span class="name">{area.area_name}</span>
-						<span class="capacity">
-							{area.latest ? `${area.latest.capacity_free_pct}% free` : "–"}
-						</span>
-					</li>
-				{/each}
-			</ul>
-		</section>
-	{/each}
+	<ul>
+		{#each areas as area (area.area_id)}
+			<li>
+				<svg viewBox="0 0 200 110" aria-hidden="true">
+					{#if area.path2}
+						<path d={area.path2} class="path2"></path>
+					{/if}
+					<path d={area.path}></path>
+				</svg>
+				<span class="name">{area.area_name}</span>
+				<span class="capacity">
+					{area.latest ? `${area.latest.capacity_free_pct}% free` : "–"}
+				</span>
+			</li>
+		{/each}
+	</ul>
 
 	{#if lastUpdated}
 		<p class="last-updated">
@@ -67,15 +63,6 @@
 {/if}
 
 <style>
-	section {
-		margin-block-end: 2.5rem;
-	}
-
-	h2 {
-		font-size: 1.1rem;
-		margin-block: 0 0.75rem;
-	}
-
 	svg {
 		width: 100%;
 		height: auto;
@@ -97,7 +84,7 @@
 		margin: 0;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		gap: 0 0.5rem;
+		gap: 2rem 0.5rem;
 	}
 
 	@media (max-width: 600px) {
