@@ -1,8 +1,5 @@
-/**
- * @param {string} text
- */
-export function slugify(text) {
-  const replacements = {
+export function slugify(text: string): string {
+  const replacements: Record<string, string> = {
     ä: "ae",
     ö: "oe",
     ü: "ue",

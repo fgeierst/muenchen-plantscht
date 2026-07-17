@@ -1,17 +1,9 @@
-<script>
+<script lang="ts">
 	import { page } from "$app/stores";
-	let items = [
+	const items: { href: string; title: string }[] = [
 		{
 			href: "/",
 			title: "Pools",
-		},
-		{
-			href: "/lakes",
-			title: "Lakes",
-		},
-		{
-			href: "/rivers",
-			title: "Rivers",
 		},
 	];
 </script>
