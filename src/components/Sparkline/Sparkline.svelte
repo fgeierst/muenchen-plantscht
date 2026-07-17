@@ -124,11 +124,11 @@
 
 	<div class="title">
 		<span class="name">{name}</span>
-		<span class="temperature" data-temperature />
+		<span class="temperature" data-temperature></span>
 	</div>
 
 	<div class="legend">
-		<span data-date />
+		<span data-date></span>
 	</div>
 </div>
 
