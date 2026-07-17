@@ -10,3 +10,6 @@ node_modules
 .output
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Agent skills are fetched via skills-lock.json, not committed
+.agents/

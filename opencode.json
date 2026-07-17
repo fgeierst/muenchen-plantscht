@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": [".agents/skills"]
+  },
+  "mcp": {
+    "val-town": {
+      "type": "remote",
+      "url": "https://api.val.town/v3/mcp",
+      "enabled": true
+    }
+  }
+}
