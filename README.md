@@ -27,3 +27,35 @@ To work on the backend, use the Val Town MCP / web editor, not this repo.
 pnpm install
 pnpm dev
 ```
+
+## Deployment
+
+The frontend is deployed to Cloudflare Workers (with Workers Assets) via
+[`@sveltejs/adapter-cloudflare`](https://kit.svelte.dev/docs/adapter-cloudflare).
+Live URL: <https://muenchen-plantscht.florian-ff8.workers.dev/>
+
+Build and deploy in one step:
+
+```bash
+pnpm deploy
+```
+
+That runs `vp build` followed by `wrangler deploy`. Wrangler reads its
+configuration from [`wrangler.jsonc`](wrangler.jsonc) and uploads both the
+generated Worker script (`.svelte-kit/cloudflare/_worker.js`) and the static
+assets in `.svelte-kit/cloudflare/`.
+
+### First-time setup
+
+1. **Authenticate** with Cloudflare (interactive, once per machine):
+   ```bash
+   npx wrangler login
+   ```
+2. **Deploy** as above.
+
+### Previewing locally
+
+```bash
+pnpm build
+npx wrangler dev
+```
