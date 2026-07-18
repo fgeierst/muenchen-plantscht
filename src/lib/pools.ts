@@ -64,3 +64,15 @@ export async function fetchPools(fetchFn: typeof fetch, date: string): Promise<P
   if (!res.ok) throw new Error(`Pools API ${res.status}`);
   return res.json() as Promise<PoolsResponse>;
 }
+
+/** Area category for page-level routing. */
+export type AreaType = "pool" | "sauna";
+
+/**
+ * Derive the area type from its name. The SWM feed has no explicit type
+ * field, so we match on the "Sauna" suffix. Everything else (Hallenbad,
+ * Freibad, wave pool, ...) is treated as a pool.
+ */
+export function areaType(areaName: string): AreaType {
+  return /sauna/i.test(areaName) ? "sauna" : "pool";
+}
