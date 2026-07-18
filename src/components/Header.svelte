@@ -24,6 +24,8 @@
 <style>
   .title {
     display: flex;
+    width: fit-content;
+    padding-inline-end: 0.3em;
     color: var(--munich-black);
     gap: 0.7rem;
     margin-block-end: 0.5rem;
@@ -40,5 +42,9 @@
     font-size: inherit;
     font-weight: inherit;
     margin: 0;
+  }
+
+  .title:focus-visible {
+    outline-offset: -4px;
   }
 </style>

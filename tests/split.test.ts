@@ -57,7 +57,7 @@ const mockResponse = {
 /** Intercept all API calls to the pools backend and return the mock. */
 async function mockApi(page: import("@playwright/test").Page) {
   await page.route(/muenchen-plantscht-pools\.val\.run/, (route) => {
-    route.fulfill({ json: mockResponse });
+    void route.fulfill({ json: mockResponse });
   });
 }
 
