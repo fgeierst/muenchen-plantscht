@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AreaCard from "../components/AreaCard.svelte";
 	import type { LocationWithComparison } from "$lib/pools";
 
 	type Data = {
@@ -42,18 +43,7 @@
 {#if hasData}
 	<ul>
 		{#each areas as area (area.area_id)}
-			<li>
-				<svg viewBox="0 0 200 110" aria-hidden="true">
-					{#if area.path2}
-						<path d={area.path2} class="path2"></path>
-					{/if}
-					<path d={area.path}></path>
-				</svg>
-				<span class="name">{area.area_name}</span>
-				<span class="capacity">
-					{area.latest ? `${area.latest.capacity_free_pct}% free` : "–"}
-				</span>
-			</li>
+			<AreaCard {area} />
 		{/each}
 	</ul>
 
@@ -68,21 +58,6 @@
 {/if}
 
 <style>
-	svg {
-		width: 100%;
-		height: auto;
-		fill: none;
-	}
-
-	path {
-		stroke: var(--munich-black);
-		stroke-width: 2;
-	}
-
-	.path2 {
-		opacity: 0.12;
-	}
-
 	ul {
 		list-style: none;
 		padding: 0;
@@ -96,15 +71,6 @@
 		ul {
 			grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
 		}
-	}
-
-	li {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.name {
-		margin-block-start: 0.3rem;
 	}
 
 	.last-updated {

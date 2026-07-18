@@ -15,3 +15,6 @@ vite.config.ts.timestamp-*
 
 # Agent skills are fetched via skills-lock.json, not committed
 .agents/
+
+*storybook.log
+storybook-static

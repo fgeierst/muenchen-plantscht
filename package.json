@@ -9,20 +9,33 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test:e2e": "playwright test",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
+    "@chromatic-com/storybook": "^5.2.1",
     "@playwright/test": "^1.61.1",
+    "@storybook/addon-a11y": "^10.5.2",
+    "@storybook/addon-docs": "^10.5.2",
+    "@storybook/addon-svelte-csf": "^5.1.2",
+    "@storybook/addon-vitest": "^10.5.2",
+    "@storybook/sveltekit": "^10.5.2",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.70.0",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/coverage-v8": "^4.1.10",
+    "playwright": "^1.61.1",
+    "storybook": "^10.5.2",
     "svelte": "^5.56.6",
     "svelte-check": "^4.7.3",
     "tslib": "^2.8.1",
     "typescript": "^7.0.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@0.2.5",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "vitest": "^4.1.10"
   },
   "devEngines": {
     "runtime": {
