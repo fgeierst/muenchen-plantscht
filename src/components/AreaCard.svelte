@@ -11,7 +11,7 @@
 		{/if}
 		<path d={area.path}></path>
 	</svg>
-	<span class="name">{area.area_name}</span>
+	<h2 class="name">{area.area_name}</h2>
 	<span class="capacity">
 		{area.latest ? `${area.latest.capacity_free_pct}% free` : "–"}
 	</span>
@@ -39,6 +39,9 @@
 	}
 
 	.name {
+		font-size: inherit;
+		font-weight: inherit;
+		margin: 0;
 		margin-block-start: 0.3rem;
 	}
 </style>
