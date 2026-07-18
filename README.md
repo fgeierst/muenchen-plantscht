@@ -30,32 +30,38 @@ pnpm dev
 
 ## Deployment
 
-The frontend is deployed to Cloudflare Workers (with Workers Assets) via
-[`@sveltejs/adapter-cloudflare`](https://kit.svelte.dev/docs/adapter-cloudflare).
-Live URL: <https://muenchen-plantscht.florian-ff8.workers.dev/>
+The frontend is a static SPA built with
+[`@sveltejs/adapter-static`](https://kit.svelte.dev/docs/adapter-static) in SPA
+mode (`ssr = false`, fallback `index.html`). It deploys via GitHub Actions over
+FTPS to the `/mp/` subfolder of the florian.geierstanger.org server.
 
-Build and deploy in one step:
+Live URL: <https://florian.geierstanger.org/mp/>
 
-```bash
-pnpm deploy
-```
+The deploy workflow lives in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+On every push to `main` it runs `vp run build` and uploads `build/` to
+`server-dir: /mp/`. The Astro site at the server root has its own FTP
+action that uploads to `/` and does not delete unknown files, so the two
+deploys never interfere.
 
-That runs `vp build` followed by `wrangler deploy`. Wrangler reads its
-configuration from [`wrangler.jsonc`](wrangler.jsonc) and uploads both the
-generated Worker script (`.svelte-kit/cloudflare/_worker.js`) and the static
-assets in `.svelte-kit/cloudflare/`.
+### Required repository secrets
 
-### First-time setup
+- `FTP_SERVER`
+- `FTP_USERNAME`
+- `FTP_PASSWORD`
 
-1. **Authenticate** with Cloudflare (interactive, once per machine):
-   ```bash
-   npx wrangler login
-   ```
-2. **Deploy** as above.
+Add them at <https://github.com/fgeierst/muenchen-plantscht/settings/secrets/actions>.
 
-### Previewing locally
+### Base path
+
+`kit.paths.base = "/mp"` is set in [`svelte.config.js`](svelte.config.js).
+Internal links use `base` from `$app/paths`. When running locally with `pnpm dev`,
+the app is served at `http://localhost:5173/mp/`.
+
+### Previewing the production build locally
 
 ```bash
 pnpm build
-npx wrangler dev
+pnpm preview
 ```
+
+Then open `http://localhost:4173/mp/`.
