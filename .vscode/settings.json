@@ -1,6 +1,4 @@
 {
-  "editor.formatOnSave": true,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  }
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true
 }
