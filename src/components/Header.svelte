@@ -24,6 +24,7 @@
 <style>
   .title {
     display: flex;
+    width: fit-content;
     color: var(--munich-black);
     gap: 0.7rem;
     margin-block-end: 0.5rem;
