@@ -21,7 +21,7 @@
 	nav {
 		display: flex;
 		gap: 0.5rem;
-		border-block-end: 1px solid hsla(var(--munich-black-hsl), 0.5);
+		border-block-end: 1px solid color-mix(in oklch, var(--munich-black) 50%, transparent);
 		padding-inline: 0.7rem;
 	}
 

@@ -11,7 +11,7 @@
 <header>
 	<a href={base} class="title">
 		<div class="title__logo"><Logo /></div>
-		<div class="title__text">München Plantscht</div>
+		<h1 class="title__text">München Plantscht</h1>
 	</a>
 
 	<Nav />
@@ -20,7 +20,7 @@
 <style>
 	.title {
 		display: flex;
-		color: var(--munich-white);
+		color: var(--munich-black);
 		gap: 0.7rem;
 		margin-block-end: 0.5rem;
 		align-items: center;
@@ -30,5 +30,11 @@
 
 	.title__logo {
 		width: 1.6em;
+	}
+
+	.title__text {
+		font-size: inherit;
+		font-weight: inherit;
+		margin: 0;
 	}
 </style>

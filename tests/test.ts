@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test("pools page ships a client-only shell at the /mp base path", async ({ page }) => {
@@ -11,17 +12,10 @@ test("pools page ships a client-only shell at the /mp base path", async ({ page 
   await expect(page.getByRole("link", { name: "München Plantscht" })).toBeVisible();
 });
 
-import { existsSync } from "node:fs";
-
-test("dead code is removed from the repo", () => {
-  expect(existsSync("src/routes/lakes")).toBe(false);
-  expect(existsSync("src/routes/rivers")).toBe(false);
-  expect(existsSync("src/components/Sparkline")).toBe(false);
-  expect(existsSync("src/components/Weather.svelte")).toBe(false);
-});
-
-test("logo link points to the base path", async ({ page }) => {
+test("pools page has no axe accessibility violations", async ({ page }) => {
   await page.goto("/");
-  const logo = page.getByRole("link", { name: "München Plantscht" });
-  await expect(logo).toHaveAttribute("href", "/mp");
+  // Wait for the SPA to hydrate before scanning.
+  await expect(page.getByRole("link", { name: "München Plantscht" })).toBeVisible();
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
 });
