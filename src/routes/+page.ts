@@ -7,7 +7,7 @@ import {
 } from "$lib/pools";
 import type { PageLoad } from "./$types";
 
-export const load: PageLoad = async ({ fetch, url }) => {
+export const load = (async ({ fetch, url }) => {
   const date = url.searchParams.get("date") ?? berlinToday();
   const weekAgo = daysAgo(date, 7);
 
@@ -34,4 +34,4 @@ export const load: PageLoad = async ({ fetch, url }) => {
   }));
 
   return { date, locations };
-};
+}) satisfies PageLoad;

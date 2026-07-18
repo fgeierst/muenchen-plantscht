@@ -1,7 +1,12 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
+	import type { LocationWithComparison } from "$lib/pools";
 
-	let { data }: { data: PageData } = $props();
+	type Data = {
+		date: string;
+		locations: LocationWithComparison[];
+	};
+
+	let { data }: { data: Data } = $props();
 
 	/** All areas across every location, flattened into a single list. */
 	const areas = $derived(data.locations.flatMap((loc) => loc.areas));

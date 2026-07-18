@@ -1,4 +1,6 @@
 {
   "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "svelte.enable-ts-plugin": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
