@@ -59,6 +59,7 @@
 		align-items: baseline;
 		gap: 0.3rem;
 		margin-block-start: 0.3rem;
+		width: fit-content;
 	}
 
 	.name {
@@ -69,17 +70,15 @@
 
 	.star-btn {
 		flex-shrink: 0;
-		padding: 0;
+		padding: 0.3em;
 		border: none;
 		background: none;
 		cursor: pointer;
 		font-size: 1.1em;
 		color: var(--munich-black);
 		line-height: 1;
-	}
-
-	.star-btn:focus-visible {
-		outline: 2px solid currentColor;
-		outline-offset: 2px;
+		border-radius: 50%;
+		display: inline-grid;
+		place-items: center;
 	}
 </style>

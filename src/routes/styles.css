@@ -1,6 +1,14 @@
 :root {
   --munich-blue: oklch(0.84 0.05 240.93);
   --munich-black: oklch(0.17 0.02 326.38);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: var(--focus-ring-width) solid currentColor;
+  outline-offset: var(--focus-ring-offset);
 }
 
 *,
