@@ -6,6 +6,10 @@
 			href: base,
 			title: "Pools",
 		},
+		{
+			href: `${base}/saunas`,
+			title: "Saunas",
+		},
 	];
 </script>
 

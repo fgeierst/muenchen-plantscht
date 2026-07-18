@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AreaGrid from "../components/AreaGrid.svelte";
+	import AreaGrid from "../../components/AreaGrid.svelte";
 	import { areaType, type LocationWithComparison } from "$lib/pools";
 
 	type Data = {
@@ -9,11 +9,11 @@
 
 	let { data }: { data: Data } = $props();
 
-	/** All pool areas (indoor + outdoor), excluding saunas. */
+	/** All sauna areas. */
 	const areas = $derived(
 		data.locations
 			.flatMap((loc) => loc.areas)
-			.filter((a) => areaType(a.area_name) === "pool"),
+			.filter((a) => areaType(a.area_name) === "sauna"),
 	);
 </script>
 
