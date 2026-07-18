@@ -10,6 +10,10 @@
 			href: `${base}/saunas`,
 			title: "Saunas",
 		},
+		{
+			href: `${base}/favorites`,
+			title: "Favorites",
+		},
 	];
 </script>
 
