@@ -1,4 +1,5 @@
 <script>
+	import { base } from "$app/paths";
 	import Logo from "$lib/icons/Logo.svelte";
 	import Nav from "./Nav.svelte";
 </script>
@@ -8,7 +9,7 @@
 </svelte:head>
 
 <header>
-	<a href="/" class="title">
+	<a href={base} class="title">
 		<div class="title__logo"><Logo /></div>
 		<div class="title__text">München Plantscht</div>
 	</a>

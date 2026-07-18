@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { base } from "$app/paths";
 	import { page } from "$app/stores";
 	const items: { href: string; title: string }[] = [
 		{
-			href: "/",
+			href: base,
 			title: "Pools",
 		},
 	];

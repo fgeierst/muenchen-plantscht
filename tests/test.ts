@@ -19,3 +19,9 @@ test("dead code is removed from the repo", () => {
   expect(existsSync("src/components/Sparkline")).toBe(false);
   expect(existsSync("src/components/Weather.svelte")).toBe(false);
 });
+
+test("logo link points to the base path", async ({ page }) => {
+  await page.goto("/");
+  const logo = page.getByRole("link", { name: "München Plantscht" });
+  await expect(logo).toHaveAttribute("href", "/mp");
+});
