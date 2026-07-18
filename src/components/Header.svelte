@@ -42,4 +42,8 @@
     font-weight: inherit;
     margin: 0;
   }
+
+  .title:focus-visible {
+    outline-offset: -4px;
+  }
 </style>
