@@ -1,13 +1,9 @@
 <script lang="ts">
 	import AreaGrid from "../../components/AreaGrid.svelte";
-	import { areaType, type LocationWithComparison } from "$lib/pools";
+	import { areaType } from "$lib/pools";
+	import type { PageData } from "../$types";
 
-	type Data = {
-		date: string;
-		locations: LocationWithComparison[];
-	};
-
-	let { data }: { data: Data } = $props();
+	let { data }: { data: PageData } = $props();
 
 	/** All sauna areas. */
 	const areas = $derived(
