@@ -11,7 +11,7 @@
 
 <nav>
 	{#each items as { href, title }}
-		<a {href} aria-current={$page.url.pathname === href ? "page" : undefined}>
+		<a {href} aria-current={$page.url.pathname.replace(/\/+$/, "") === href ? "page" : undefined}>
 			{title}
 		</a>
 	{/each}
