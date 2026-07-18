@@ -25,7 +25,7 @@
   .title {
     display: flex;
     width: fit-content;
-    padding-inline: 0.3em;
+    padding-inline-end: 0.3em;
     color: var(--munich-black);
     gap: 0.7rem;
     margin-block-end: 0.5rem;
