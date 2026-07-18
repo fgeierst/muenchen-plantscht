@@ -45,8 +45,3 @@ export function toggleFavorite(areaId: number): void {
   }
   persist();
 }
-
-/** Whether at least one favorite exists. */
-export function hasFavorites(): boolean {
-  return favorites.size > 0;
-}

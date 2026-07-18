@@ -91,16 +91,6 @@ test("favorites page shows empty state when no favorites", async ({ page }) => {
   await expect(page.getByText("No favorites yet")).toBeVisible();
 });
 
-test("initial load redirects to favorites when favorites exist", async ({ page }) => {
-  await mockApi(page);
-  await page.addInitScript(() => {
-    localStorage.setItem("mp-favorites", JSON.stringify([1]));
-  });
-  await page.goto("/");
-  await expect(page).toHaveURL(/\/favorites$/);
-  await expect(page.getByText("Testbad Hallenbad")).toBeVisible();
-});
-
 test("un-favoriting removes area from favorites page", async ({ page }) => {
   await mockApi(page);
   await page.goto("/");
@@ -123,6 +113,13 @@ test("favorites persist across page reloads", async ({ page }) => {
   await page.getByRole("button", { name: "Favorite Testbad Hallenbad" }).click();
   await page.reload();
 
-  await expect(page).toHaveURL(/\/favorites$/);
+  // After reload, the star button still reflects the favorited state (localStorage persisted).
+  await expect(page.getByRole("button", { name: "Unfavorite Testbad Hallenbad" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+
+  // And the area appears on the favorites page.
+  await page.getByRole("link", { name: "Favorites" }).click();
   await expect(page.getByText("Testbad Hallenbad")).toBeVisible();
 });
