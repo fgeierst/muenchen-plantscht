@@ -1,11 +1,24 @@
-<script>
+<script lang="ts">
   import { base } from "$app/paths";
+  import { page } from "$app/stores";
   import Logo from "$lib/icons/Logo.svelte";
   import Nav from "./Nav.svelte";
+
+  const pageTitles: Record<string, string> = {
+    [base]: "Pools",
+    [`${base}/saunas`]: "Saunas",
+    [`${base}/favorites`]: "Favorites",
+  };
+
+  const title = $derived.by(() => {
+    const path = $page.url.pathname.replace(/\/+$/, "");
+    const name = pageTitles[path];
+    return name ? `${name} – München Plantscht` : "München Plantscht";
+  });
 </script>
 
 <svelte:head>
-  <title>München Plantscht</title>
+  <title>{title}</title>
   <meta
     name="description"
     content="Real-time capacity level display of the Munich public swimming pools, with historical data"
