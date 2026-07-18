@@ -10,3 +10,12 @@ test("pools page ships a client-only shell at the /mp base path", async ({ page 
   // ...and it appears once the app hydrates.
   await expect(page.getByRole("link", { name: "München Plantscht" })).toBeVisible();
 });
+
+import { existsSync } from "node:fs";
+
+test("dead code is removed from the repo", () => {
+  expect(existsSync("src/routes/lakes")).toBe(false);
+  expect(existsSync("src/routes/rivers")).toBe(false);
+  expect(existsSync("src/components/Sparkline")).toBe(false);
+  expect(existsSync("src/components/Weather.svelte")).toBe(false);
+});
