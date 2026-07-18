@@ -1,13 +1,19 @@
-import adapter from "@sveltejs/adapter-cloudflare";
+import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: vitePreprocess(),
   kit: {
-    // adapter-cloudflare deploys this SvelteKit app to Cloudflare Workers
-    // with Workers Assets. See https://developers.cloudflare.com/workers/framework-guides/web-apps/sveltekit/
-    adapter: adapter(),
+    adapter: adapter({
+      // SPA fallback: a single shell HTML file is generated and the router
+      // takes over in the browser. Named index.html so directory requests
+      // to /mp/ resolve on a plain FTP host.
+      fallback: "index.html",
+    }),
+    paths: {
+      base: "/mp",
+    },
   },
 };
 
