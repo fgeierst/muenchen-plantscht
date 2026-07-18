@@ -20,9 +20,7 @@
 			class="star-btn"
 			type="button"
 			aria-pressed={favorited}
-			aria-label={favorited
-				? `Unfavorite ${area.area_name}`
-				: `Favorite ${area.area_name}`}
+			aria-label={`Favorite ${area.area_name}`}
 			onclick={() => toggleFavorite(area.area_id)}
 		>
 			<Star filled={favorited} />
