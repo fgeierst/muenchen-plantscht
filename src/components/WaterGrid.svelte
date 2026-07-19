@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { WaterBody } from "$lib/water";
+	import type { WaterBody, WaterCategory } from "$lib/water";
 	import WaterCard from "./WaterCard.svelte";
 
-	let { bodies }: { bodies: WaterBody[] } = $props();
+	let { bodies, category }: { bodies: WaterBody[]; category: WaterCategory } =
+		$props();
 
 	const hasData = $derived(bodies.length > 0);
 </script>
@@ -10,7 +11,7 @@
 {#if hasData}
 	<ul>
 		{#each bodies as body (body.slug)}
-			<WaterCard {body} />
+			<WaterCard {body} {category} />
 		{/each}
 	</ul>
 {:else}

@@ -36,6 +36,7 @@
 <style>
 	nav {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.5rem;
 		border-block-end: 1px solid color-mix(in oklch, var(--munich-black) 50%, transparent);
 		padding-inline: 0.7rem;
@@ -49,5 +50,16 @@
 
 	[aria-current="page"] {
 		border-block-end: 4px solid;
+	}
+
+	@media (max-width: 600px) {
+		nav {
+			padding-inline: 0.5rem;
+			gap: 0.25rem;
+		}
+
+		a {
+			padding: 0.6rem 0.8rem;
+		}
 	}
 </style>
