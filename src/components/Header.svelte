@@ -7,6 +7,8 @@
   const pageTitles: Record<string, string> = {
     [base]: "Pools",
     [`${base}/saunas`]: "Saunas",
+    [`${base}/lakes`]: "Lakes",
+    [`${base}/rivers`]: "Rivers",
     [`${base}/favorites`]: "Favorites",
   };
 

@@ -11,6 +11,14 @@
 			title: "Saunas",
 		},
 		{
+			href: `${base}/lakes`,
+			title: "Lakes",
+		},
+		{
+			href: `${base}/rivers`,
+			title: "Rivers",
+		},
+		{
 			href: `${base}/favorites`,
 			title: "Favorites",
 		},

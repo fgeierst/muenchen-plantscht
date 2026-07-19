@@ -14,7 +14,7 @@ export const load = (async ({ fetch, url }) => {
   const weekAgo = daysAgo(date, 7);
 
   const [today, prior] = await Promise.all([
-    fetchPools(fetch, date),
+    fetchPools(fetch, date).catch((): PoolsResponse => ({ date, locations: [] })),
     fetchPools(fetch, weekAgo).catch((): PoolsResponse => ({ date: weekAgo, locations: [] })),
   ]);
 
