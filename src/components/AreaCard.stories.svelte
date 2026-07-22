@@ -1,15 +1,14 @@
 <script module lang="ts">
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import AreaCard from './AreaCard.svelte';
-	import { busyArea, mediumArea, quietArea, noDataArea } from './areaCard.fixtures';
+	import { mediumArea } from './areaCard.fixtures';
 	import type { AreaWithComparison } from '$lib/pools';
 
 	const { Story } = defineMeta({
-		title: 'Pools/AreaCard',
 		component: AreaCard,
 		tags: ['autodocs'],
 		args: {
-			area: busyArea,
+			area: mediumArea,
 		},
 		render: template,
 	});
@@ -21,10 +20,4 @@
 	</div>
 {/snippet}
 
-<Story name="Busy" />
-
-<Story name="Medium" args={{ area: mediumArea }} />
-
-<Story name="Quiet" args={{ area: quietArea }} />
-
-<Story name="NoData" args={{ area: noDataArea }} />
+<Story name="Default" />

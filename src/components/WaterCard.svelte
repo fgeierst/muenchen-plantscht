@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { WaterBody, WaterCategory } from "$lib/water";
 	import { isWaterFavorite, toggleWaterFavorite } from "$lib/favorites.svelte";
 	import Star from "$lib/icons/Star.svelte";
+	import type { WaterBody, WaterCategory } from "$lib/water";
 
 	let { body, category }: { body: WaterBody; category: WaterCategory } =
 		$props();
@@ -9,10 +9,10 @@
 </script>
 
 <li>
-	<span class="temperature">{body.water_temperature.toFixed(0)}°</span>
 	<svg viewBox="0 0 200 110" aria-hidden="true">
 		<path d={body.path} />
 	</svg>
+	<span class="temperature">{body.water_temperature.toFixed(0)}°</span>
 	<div class="header">
 		<h2 class="name">
 			{body.body_of_water}{body.measurement_site ? ` (${body.measurement_site})` : ""}
@@ -54,7 +54,6 @@
 		display: flex;
 		align-items: baseline;
 		gap: 0.3rem;
-		margin-block-start: 0.3rem;
 		width: fit-content;
 		max-width: 100%;
 	}
