@@ -1,15 +1,23 @@
 <script lang="ts">
 	import { isWaterFavorite, toggleWaterFavorite } from "$lib/favorites.svelte";
+	import { sparklineAltText } from "$lib/sparklineAltText";
 	import Star from "$lib/icons/Star.svelte";
 	import type { WaterBody, WaterCategory } from "$lib/water";
 
 	let { body, category }: { body: WaterBody; category: WaterCategory } =
 		$props();
 	const favorited = $derived(isWaterFavorite(category, body.slug));
+	const altText = $derived(
+		sparklineAltText(
+			body.data.map((d) => ({ timestamp: d.measured_at, value: d.water_temperature })),
+			body.water_temperature,
+			"°",
+		),
+	);
 </script>
 
 <li>
-	<svg viewBox="0 0 200 110" aria-hidden="true">
+	<svg viewBox="0 0 200 110" role="img" aria-label={altText}>
 		<path d={body.path} />
 	</svg>
 	<span class="temperature">{body.water_temperature.toFixed(0)}°</span>

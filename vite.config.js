@@ -29,13 +29,32 @@ export default defineConfig({
       typeCheck: true,
     },
   },
-  plugins: lazyPlugins(() => [sveltekit()]),
+  plugins: [
+    ...(lazyPlugins(() => [sveltekit()]) ?? []),
+    {
+      name: "vitest-browser-base-override",
+      config() {
+        if (process.env.VITEST) {
+          return { base: "/" };
+        }
+      },
+    },
+  ],
+  server: {
+    host: "0.0.0.0",
+  },
   test: {
     projects: [
       {
         extends: true,
         test: {
           include: ["src/**/*.{test,spec}.{js,ts}"],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [{ browser: "chromium" }],
+          },
         },
       },
       {

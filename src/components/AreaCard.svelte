@@ -1,14 +1,22 @@
 <script lang="ts">
 	import type { AreaWithComparison } from "$lib/pools";
 	import { isFavorite, toggleFavorite } from "$lib/favorites.svelte";
+	import { sparklineAltText } from "$lib/sparklineAltText";
 	import Star from "$lib/icons/Star.svelte";
 
 	let { area }: { area: AreaWithComparison } = $props();
 	const favorited = $derived(isFavorite(area.area_id));
+	const altText = $derived(
+		sparklineAltText(
+			area.data.map((d) => ({ timestamp: d.recorded_at, value: d.capacity_free_pct })),
+			area.latest?.capacity_free_pct ?? null,
+			"% free",
+		),
+	);
 </script>
 
 <li>
-	<svg viewBox="0 0 200 110" aria-hidden="true">
+	<svg viewBox="0 0 200 110" role="img" aria-label={altText}>
 		{#if area.path2}
 			<path d={area.path2} class="path2"></path>
 		{/if}
