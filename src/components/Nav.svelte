@@ -44,7 +44,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		border-block-end: 1px solid color-mix(in oklch, var(--munich-black) 50%, transparent);
+		border-block-end: 1px solid var(--munich-border);
 		padding-inline: 0.7rem;
 	}
 
