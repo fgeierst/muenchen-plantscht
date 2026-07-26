@@ -5,4 +5,4 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<WaterGrid bodies={data.water.bodies} category="lakes" />
+<WaterGrid bodies={data.lakes.bodies} category="lakes" />

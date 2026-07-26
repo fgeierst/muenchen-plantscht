@@ -9,18 +9,11 @@ export interface AreaLatest {
   recorded_at: string;
 }
 
-export interface AreaDataPoint {
-  recorded_at: string;
-  customer_amount: number;
-  customer_amount_max: number;
-  capacity_free_pct: number;
-}
-
 export interface Area {
   area_id: number;
   area_name: string;
   latest: AreaLatest | null;
-  data: AreaDataPoint[];
+  trend_text: string;
   path: string;
 }
 

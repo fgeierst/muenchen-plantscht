@@ -20,14 +20,7 @@ const mockResponse = {
             customer_amount_max: 500,
             capacity_free_pct: 80,
           },
-          data: [
-            {
-              recorded_at: "2026-07-18T10:00:00Z",
-              customer_amount: 100,
-              customer_amount_max: 500,
-              capacity_free_pct: 80,
-            },
-          ],
+          trend_text: "Currently at 80% free.",
           path: "M3,100L166,51",
         },
         {
@@ -39,14 +32,7 @@ const mockResponse = {
             customer_amount_max: 50,
             capacity_free_pct: 90,
           },
-          data: [
-            {
-              recorded_at: "2026-07-18T10:00:00Z",
-              customer_amount: 5,
-              customer_amount_max: 50,
-              capacity_free_pct: 90,
-            },
-          ],
+          trend_text: "Currently at 90% free.",
           path: "M3,100L166,51",
         },
       ],
@@ -58,6 +44,11 @@ const mockResponse = {
 async function mockApi(page: import("@playwright/test").Page) {
   await page.route(/muenchen-plantscht-pools\.val\.run/, (route) => {
     void route.fulfill({ json: mockResponse });
+  });
+  await page.route(/muenchen-plantscht-water\.val\.run/, (route) => {
+    const url = new URL(route.request().url());
+    const category = url.searchParams.get("category") ?? "lakes";
+    void route.fulfill({ json: { category, bodies: [] } });
   });
 }
 
