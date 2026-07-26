@@ -17,10 +17,10 @@ export const load = (async ({ fetch, url }) => {
   const [today, prior, lakes, rivers] = await Promise.all([
     fetchPools(fetch, date).catch((): PoolsResponse => ({ date, locations: [] })),
     fetchPools(fetch, weekAgo).catch((): PoolsResponse => ({ date: weekAgo, locations: [] })),
-    fetchWaterTemperatures(fetch, "lakes").catch(
+    fetchWaterTemperatures(fetch, "lakes", date).catch(
       (): WaterResponse => ({ category: "lakes", bodies: [] }),
     ),
-    fetchWaterTemperatures(fetch, "rivers").catch(
+    fetchWaterTemperatures(fetch, "rivers", date).catch(
       (): WaterResponse => ({ category: "rivers", bodies: [] }),
     ),
   ]);
