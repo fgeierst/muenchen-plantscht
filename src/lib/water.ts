@@ -22,8 +22,10 @@ export type WaterCategory = "lakes" | "rivers";
 export async function fetchWaterTemperatures(
   fetchFn: typeof fetch,
   category: WaterCategory,
+  date?: string,
 ): Promise<WaterResponse> {
-  const res = await fetchFn(`${API_BASE}/?category=${category}`);
+  const url = `${API_BASE}/?category=${category}${date ? `&date=${date}` : ""}`;
+  const res = await fetchFn(url);
   if (!res.ok) throw new Error(`Water API ${res.status}`);
   return (await res.json()) as WaterResponse;
 }

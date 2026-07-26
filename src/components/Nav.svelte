@@ -23,11 +23,17 @@
 			title: "Favorites",
 		},
 	];
+
+	const dateParam = $derived($page.url.searchParams.get("date"));
+
+	function hrefWithDate(href: string): string {
+		return dateParam ? `${href}?date=${dateParam}` : href;
+	}
 </script>
 
 <nav>
 	{#each items as { href, title }}
-		<a {href} aria-current={$page.url.pathname.replace(/\/+$/, "") === href ? "page" : undefined}>
+		<a href={hrefWithDate(href)} aria-current={$page.url.pathname.replace(/\/+$/, "") === href ? "page" : undefined}>
 			{title}
 		</a>
 	{/each}

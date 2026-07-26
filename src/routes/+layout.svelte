@@ -1,11 +1,13 @@
 <script>
 	import Header from "../components/Header.svelte";
+	import DateSelect from "../components/DateSelect.svelte";
 	import Footer from "../components/Footer.svelte";
 	import "./styles.css";
 </script>
 
 <div class="app">
 	<Header />
+	<DateSelect />
 	<main>
 		<slot />
 	</main>
