@@ -2,11 +2,6 @@ import { env } from "$env/dynamic/public";
 
 const API_BASE = env.PUBLIC_WATER_API ?? "https://muenchen-plantscht-water.val.run";
 
-export interface WaterDataPoint {
-  measured_at: string;
-  water_temperature: number;
-}
-
 export interface WaterBody {
   body_of_water: string;
   slug: string;
@@ -14,7 +9,7 @@ export interface WaterBody {
   water_temperature: number;
   measured_at: string;
   path: string;
-  data: WaterDataPoint[];
+  trend_text: string;
 }
 
 export interface WaterResponse {

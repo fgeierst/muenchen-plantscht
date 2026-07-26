@@ -5,6 +5,7 @@ import {
   type LocationWithComparison,
   type PoolsResponse,
 } from "$lib/pools";
+import { fetchWaterTemperatures, type WaterResponse } from "$lib/water";
 import type { LayoutLoad } from "./$types";
 
 export const ssr = false;
@@ -13,9 +14,15 @@ export const load = (async ({ fetch, url }) => {
   const date = url.searchParams.get("date") ?? berlinToday();
   const weekAgo = daysAgo(date, 7);
 
-  const [today, prior] = await Promise.all([
+  const [today, prior, lakes, rivers] = await Promise.all([
     fetchPools(fetch, date).catch((): PoolsResponse => ({ date, locations: [] })),
     fetchPools(fetch, weekAgo).catch((): PoolsResponse => ({ date: weekAgo, locations: [] })),
+    fetchWaterTemperatures(fetch, "lakes").catch(
+      (): WaterResponse => ({ category: "lakes", bodies: [] }),
+    ),
+    fetchWaterTemperatures(fetch, "rivers").catch(
+      (): WaterResponse => ({ category: "rivers", bodies: [] }),
+    ),
   ]);
 
   // Index prior week's area paths by area_id for the comparison line.
@@ -35,5 +42,5 @@ export const load = (async ({ fetch, url }) => {
     })),
   }));
 
-  return { date, locations };
+  return { date, locations, lakes, rivers };
 }) satisfies LayoutLoad;

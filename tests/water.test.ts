@@ -11,10 +11,7 @@ const mockWaterResponse = {
       water_temperature: 22.5,
       measured_at: "2026-07-19T17:00:00.000Z",
       path: "M3,50C50,55,100,45,166,40",
-      data: [
-        { measured_at: "2026-07-13T17:00:00.000Z", water_temperature: 20.1 },
-        { measured_at: "2026-07-19T17:00:00.000Z", water_temperature: 22.5 },
-      ],
+      trend_text: "Steadily increased from 20° to 23°.",
     },
   ],
 };

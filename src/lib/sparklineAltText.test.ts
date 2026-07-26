@@ -1,8 +1,13 @@
 // eslint-disable-next-line vite-plus/prefer-vite-plus-imports -- vitest browser mode doesn't support vite-plus/test
 import { describe, expect, it } from "vitest";
 import { sparklineAltText } from "./sparklineAltText";
-import { busyArea, mediumArea, quietArea, noDataArea } from "../components/areaCard.fixtures";
-import { warmRiver, coldRiver } from "../components/waterCard.fixtures";
+import {
+  busyAreaSeries,
+  mediumAreaSeries,
+  quietAreaSeries,
+  warmRiverSeries,
+  coldRiverSeries,
+} from "./sparklineAltText.fixtures";
 
 function berlinTime(iso: string): string {
   return new Intl.DateTimeFormat("de-DE", {
@@ -139,50 +144,29 @@ describe("sparklineAltText", () => {
 
   describe("area fixtures", () => {
     it("classifies busyArea as Dip", () => {
-      const points = busyArea.data.map((d) => ({
-        timestamp: d.recorded_at,
-        value: d.capacity_free_pct,
-      }));
-      const current = busyArea.latest?.capacity_free_pct ?? null;
-      const minPoint = busyArea.data.reduce((min, d) =>
-        d.capacity_free_pct < min.capacity_free_pct ? d : min,
-      );
-      const expectedTime = berlinTime(minPoint.recorded_at);
-      expect(sparklineAltText(points, current, "% free")).toBe(
+      const minPoint = busyAreaSeries.reduce((min, d) => (d.value < min.value ? d : min));
+      const expectedTime = berlinTime(minPoint.timestamp);
+      expect(sparklineAltText(busyAreaSeries, 51, "% free")).toBe(
         `Dropped to a low of 13% free at ${expectedTime}, now at 51% free.`,
       );
     });
 
     it("classifies mediumArea as Wave", () => {
-      const points = mediumArea.data.map((d) => ({
-        timestamp: d.recorded_at,
-        value: d.capacity_free_pct,
-      }));
-      const current = mediumArea.latest?.capacity_free_pct ?? null;
-      expect(sparklineAltText(points, current, "% free")).toBe(
+      expect(sparklineAltText(mediumAreaSeries, 75, "% free")).toBe(
         "Fluctuated between 71% free and 100% free, currently at 75% free.",
       );
     });
 
     it("classifies quietArea as Flat", () => {
-      const points = quietArea.data.map((d) => ({
-        timestamp: d.recorded_at,
-        value: d.capacity_free_pct,
-      }));
-      const current = quietArea.latest?.capacity_free_pct ?? null;
-      expect(sparklineAltText(points, current, "% free")).toBe("Nearly constant at 100% free.");
+      expect(sparklineAltText(quietAreaSeries, 100, "% free")).toBe(
+        "Nearly constant at 100% free.",
+      );
     });
 
     it("classifies noDataArea as Dip with null latest falling back to last data point", () => {
-      const points = noDataArea.data.map((d) => ({
-        timestamp: d.recorded_at,
-        value: d.capacity_free_pct,
-      }));
-      const minPoint = noDataArea.data.reduce((min, d) =>
-        d.capacity_free_pct < min.capacity_free_pct ? d : min,
-      );
-      const expectedTime = berlinTime(minPoint.recorded_at);
-      expect(sparklineAltText(points, null, "% free")).toBe(
+      const minPoint = busyAreaSeries.reduce((min, d) => (d.value < min.value ? d : min));
+      const expectedTime = berlinTime(minPoint.timestamp);
+      expect(sparklineAltText(busyAreaSeries, null, "% free")).toBe(
         `Dropped to a low of 13% free at ${expectedTime}, now at 51% free.`,
       );
     });
@@ -190,23 +174,11 @@ describe("sparklineAltText", () => {
 
   describe("water fixtures", () => {
     it("classifies warmRiver as Flat (temperature range below threshold)", () => {
-      const points = warmRiver.data.map((d) => ({
-        timestamp: d.measured_at,
-        value: d.water_temperature,
-      }));
-      expect(sparklineAltText(points, warmRiver.water_temperature, "°")).toBe(
-        "Nearly constant at 25°.",
-      );
+      expect(sparklineAltText(warmRiverSeries, 25.1, "°")).toBe("Nearly constant at 25°.");
     });
 
     it("classifies coldRiver as Flat (2 data points, small range)", () => {
-      const points = coldRiver.data.map((d) => ({
-        timestamp: d.measured_at,
-        value: d.water_temperature,
-      }));
-      expect(sparklineAltText(points, coldRiver.water_temperature, "°")).toBe(
-        "Nearly constant at 11°.",
-      );
+      expect(sparklineAltText(coldRiverSeries, 11.2, "°")).toBe("Nearly constant at 11°.");
     });
   });
 });

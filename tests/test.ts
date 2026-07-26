@@ -1,6 +1,17 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  await page.route(/muenchen-plantscht-pools\.val\.run/, (route) => {
+    void route.fulfill({ json: { date: "2026-07-19", locations: [] } });
+  });
+  await page.route(/muenchen-plantscht-water\.val\.run/, (route) => {
+    const url = new URL(route.request().url());
+    const category = url.searchParams.get("category") ?? "lakes";
+    void route.fulfill({ json: { category, bodies: [] } });
+  });
+});
+
 test("pools page ships a client-only shell at the /mp base path", async ({ page }) => {
   const response = await page.goto("/");
   expect(response?.status()).toBe(200);
